@@ -4,27 +4,35 @@
               android:id="@+id/problemFragment"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:gravity="center"
+              android:orientation="vertical"
                 >
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left">
+                >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/scoreText"/>
+            android:id="@+id/scoreText"
+            android:gravity="left"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/timerText"
+                android:gravity="right"/>
 
         </LinearLayout>
 
-        <LinearLayout
+
+    <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 >
 
             <TextView
@@ -38,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FF0000"
-            android:textSize="30dp"/>
+            android:textSize="30dp"
+            />
 
     <Button
         android:id="@+id/submit"

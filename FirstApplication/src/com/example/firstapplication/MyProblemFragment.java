@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,9 @@ public class MyProblemFragment extends Fragment {
 
     private static int Min = 0;
     private static int Max = 9;
+    private CountDownTimer countDownTimer;
+    private final long startTime = 10 * 1000;
+    private final long interval = 1 * 1000;
 
     //Question variables
     int a;
@@ -29,6 +33,7 @@ public class MyProblemFragment extends Fragment {
     String symbol;
     int solution;
 
+    private TextView timerText;
 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -57,8 +62,14 @@ public class MyProblemFragment extends Fragment {
         // If this Fragment has no UI then return null.
         view = inflater.inflate(R.layout.problem_view, container, false);
 
+        timerText = (TextView)view.findViewById(R.id.timerText);
+        countDownTimer = new MyCountdownTimer(startTime, interval);
+
         final TextView question = (TextView)view.findViewById(R.id.problemText);
         question.setText(updateQuestion());
+
+        final TextView score = (TextView)view.findViewById(R.id.scoreText);
+        score.setText("0", TextView.BufferType.NORMAL);
 
         final TextView answer = (TextView)view.findViewById(R.id.problemAnswer);
 
@@ -98,6 +109,7 @@ public class MyProblemFragment extends Fragment {
                 toast.show();
                 if(check == true)
                 {
+                    updateScore();
                     question.setText(updateQuestion());
                 }
 
@@ -106,6 +118,32 @@ public class MyProblemFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void updateScore()
+    {
+        TextView score = (TextView)view.findViewById(R.id.scoreText);
+        int currentScore = Integer.parseInt(score.getText().toString());
+        currentScore++;
+        score.setText(Integer.toString(currentScore), TextView.BufferType.NORMAL);
+    }
+
+    public class MyCountdownTimer extends CountDownTimer
+    {
+        public MyCountdownTimer(long startTime, long interval)
+        {
+            super(startTime, interval);
+        }
+
+        @Override
+        public void onFinish() {
+            timerText.setText("Damn");
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            timerText.setText("" + millisUntilFinished/1000);
+        }
     }
 
     private String updateQuestion()
@@ -133,6 +171,9 @@ public class MyProblemFragment extends Fragment {
         }
 
         problem = a+symbol+b+" = ";
+
+        countDownTimer.cancel();
+        countDownTimer.start();
 
         return problem;
     }
