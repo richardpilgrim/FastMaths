@@ -7,7 +7,14 @@
               android:orientation="vertical"
                 >
 
-        <LinearLayout
+        <ProgressBar
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            />
+
+    <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
@@ -30,6 +37,7 @@
 
 
     <LinearLayout
+            android:id="@+id/problemContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -56,5 +64,13 @@
         android:text="@string/submit"
         />
         </LinearLayout>
+
+
+    <ProgressBar
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/progressBarTwo"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:visibility="visible"/>
 
 </LinearLayout>

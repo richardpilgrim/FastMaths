@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.app.FragmentManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,10 @@ public class MyProblemFragment extends Fragment {
     private CountDownTimer countDownTimer;
     private final long startTime = 10 * 1000;
     private final long interval = 1 * 1000;
+
+    private ProgressBar timerBar;
+    private ProgressBar timerBarTwo;
+    private int timerProgress;
 
     //Question variables
     int a;
@@ -64,6 +69,10 @@ public class MyProblemFragment extends Fragment {
 
         timerText = (TextView)view.findViewById(R.id.timerText);
         countDownTimer = new MyCountdownTimer(startTime, interval);
+
+        timerBar = (ProgressBar)view.findViewById(R.id.progressBar);
+        timerBarTwo = (ProgressBar)view.findViewById(R.id.progressBarTwo);
+        timerProgress = 100;
 
         final TextView question = (TextView)view.findViewById(R.id.problemText);
         question.setText(updateQuestion());
@@ -138,12 +147,22 @@ public class MyProblemFragment extends Fragment {
         @Override
         public void onFinish() {
             timerText.setText("Damn");
+            timerProgress = 0;
+            setTimerProgress();
         }
 
         @Override
         public void onTick(long millisUntilFinished) {
             timerText.setText("" + millisUntilFinished/1000);
+            timerProgress = timerProgress - 10;
+            setTimerProgress();
         }
+    }
+
+    private void setTimerProgress()
+    {
+        timerBar.setProgress(timerProgress);
+        timerBarTwo.setProgress(timerProgress);
     }
 
     private String updateQuestion()
@@ -174,6 +193,9 @@ public class MyProblemFragment extends Fragment {
 
         countDownTimer.cancel();
         countDownTimer.start();
+
+        timerProgress = 100;
+        setTimerProgress();
 
         return problem;
     }
