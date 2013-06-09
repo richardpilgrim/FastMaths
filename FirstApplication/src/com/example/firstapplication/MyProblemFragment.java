@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -31,6 +32,8 @@ public class MyProblemFragment extends Fragment {
     private ProgressBar timerBar;
     private ProgressBar timerBarTwo;
     private int timerProgress;
+
+    private int currentScore;
 
     //Question variables
     int a;
@@ -78,7 +81,8 @@ public class MyProblemFragment extends Fragment {
         question.setText(updateQuestion());
 
         final TextView score = (TextView)view.findViewById(R.id.scoreText);
-        score.setText("0", TextView.BufferType.NORMAL);
+        currentScore = 0;
+        score.setText(Integer.toString(currentScore), TextView.BufferType.NORMAL);
 
         final TextView answer = (TextView)view.findViewById(R.id.problemAnswer);
 
@@ -132,7 +136,7 @@ public class MyProblemFragment extends Fragment {
     private void updateScore()
     {
         TextView score = (TextView)view.findViewById(R.id.scoreText);
-        int currentScore = Integer.parseInt(score.getText().toString());
+        currentScore = Integer.parseInt(score.getText().toString());
         currentScore++;
         score.setText(Integer.toString(currentScore), TextView.BufferType.NORMAL);
     }
@@ -149,6 +153,7 @@ public class MyProblemFragment extends Fragment {
             timerText.setText("Damn");
             timerProgress = 0;
             setTimerProgress();
+            mListener.OnFragmentClick(5,Integer.toString(currentScore));
         }
 
         @Override

@@ -51,6 +51,10 @@ public class MainActivity extends Activity implements OnFragmentClickListener {
             case 4:
                 MySecondFragment.enableDash();
                 break;
+            case 5:
+                Intent i = new Intent(MainActivity.this, ResultsActivity.class);
+                i.putExtra("score", (String)object);
+                startActivity(i);
 
         }
     }
